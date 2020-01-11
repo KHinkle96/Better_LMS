@@ -24,7 +24,9 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(student_params)
+   # binding.irb
+    # @student = Student.new(student_params)
+     @student = Student.new(name: student_params[:name], course: Course.find_by(name: student_params[:course]))
 
     respond_to do |format|
       if @student.save
@@ -69,6 +71,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name)
+      params.require(:student).permit(:name, :course)
     end
 end
