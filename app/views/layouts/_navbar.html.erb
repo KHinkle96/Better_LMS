@@ -2,12 +2,27 @@
   <ul>
     <li><%= link_to 'Home', root_path %> </li>
     <li><%= link_to 'Courses', courses_path %> </li>
-    <li><%= link_to 'Add Course', rails_admin.new_path('course') %> </li>
+    
+    <% if current_user && current_user.admin %>
+      <li><%= link_to 'Add Course', rails_admin.new_path('course') %> </li>
+    <% end %>
+    
     <li><%= link_to 'Grades', grades_path %> </li>
-    <li><%= link_to 'Add New Grade', rails_admin.new_path('grade') %> </li>
+    
+    <% if current_user && current_user.admin %>
+      <li><%= link_to 'Add New Grade', rails_admin.new_path('grade') %> </li>
+    <% end %>
+
     <li><%= link_to 'Assignments', assignments_path %> </li>
-    <li><%= link_to 'Add New Assignment', rails_admin.new_path('assignment') %> </li>
+    
+    <% if current_user && current_user.admin %>
+      <li><%= link_to 'Add New Assignment', rails_admin.new_path('assignment') %> </li>
+    <% end %>
+
     <li><%= link_to 'Students', students_path %> </li>
-    <li><%= link_to 'Add Students', rails_admin.new_path('student') %> </li>
+
+    <% if current_user && current_user.admin %>
+      <li><%= link_to 'Add Students', rails_admin.new_path('student') %> </li>
+    <% end %>
   </ul>
-</nav>>
+</nav>
