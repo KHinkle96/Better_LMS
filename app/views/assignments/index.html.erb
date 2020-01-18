@@ -17,13 +17,16 @@
         <td><%= assignment.title %></td>
         <td><%= assignment.content %></td>
         <td><%= link_to 'Show', assignment %></td>
-        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
-        <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :edit, Assignment %>
+          <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+          <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Assignment', new_assignment_path %>
+<% if can? :edit, Assignment %>
+  <%= link_to 'New Assignment', new_assignment_path %>
+<% end %>

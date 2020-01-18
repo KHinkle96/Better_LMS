@@ -15,8 +15,10 @@
       <tr>
         <td><%= student.name %></td>
         <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :edit, Student %>
+          <td><%= link_to 'Edit', edit_student_path(student) %></td>
+          <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Student', new_student_path %>
+<% if can? :edit, Student %>
+  <%= link_to 'New Student', new_student_path %>
+<% end %>
