@@ -17,8 +17,10 @@
         <td><%= grade.letter %></td>
         <td><%= grade.score %></td>
         <td><%= link_to 'Show', grade %></td>
+        <% if can? :edit, Grade %>
         <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
         <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,6 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>
+<% if can? :edit, Grade %>
+  <%= link_to 'New Grade', new_grade_path %>
+<% end %>
