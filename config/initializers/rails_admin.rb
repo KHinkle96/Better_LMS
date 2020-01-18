@@ -33,9 +33,9 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+  end
 
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
+  config.authorize_with do
+    redirect_to main_app.root_path unless warden.user.admin == true
   end
 end
