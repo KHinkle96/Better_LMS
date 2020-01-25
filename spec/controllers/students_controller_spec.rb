@@ -2,7 +2,11 @@ require 'rails_helper'
 require 'faker'
 RSpec.describe StudentsController, type: :controller do
   describe "new" do 
-    it "sets a new student object" do 
+    it "sets a new student object" do
+      @request.env["devise.mapping"] = Devise.mappings[:admin]
+      @user = FactoryBot.create(:user)
+      @user.role = :admin
+      sign_in @user
       get :new
       expect(assigns(:student)).to be_a Student
     end 
