@@ -5,7 +5,7 @@ RSpec.describe StudentsController, type: :controller do
     it "sets a new student object" do
       @request.env["devise.mapping"] = Devise.mappings[:admin]
       @user = FactoryBot.create(:user)
-      @user.role = :admin
+      @user.admin = true
       sign_in @user
       get :new
       expect(assigns(:student)).to be_a Student
@@ -16,29 +16,22 @@ RSpec.describe StudentsController, type: :controller do
   describe "create" do
     context "when passed proper params" do
       it "creates a new student" do 
+        @request.env["devise.mapping"] = Devise.mappings[:admin]
+        @user = FactoryBot.create(:user)
+        @user.admin = true
+        sign_in @user
+
+        course = FactoryBot.create(:course)
+        
         params = {student: {
-        name: Faker::Name.name
+        name: Faker::Name.name,
+        course: course.name
         }}
+
         expect {
           post :create, params: params
         }.to change(Student, :count).from(0).to(1)
-        expect(response).to redirect_to(root_path)
-      end
-    end
-    context "when passed bad params" do 
-      it "renders the new action with no student created" do
-        params = {student: {hackerman: true}}
-        post :create, params: params
-        expect(Student.count).to eq 0
-        expect(response).to render_template(:new)
-      end
-    end
-    context "when passed bad params" do
-      it "renders the new action with no student created" do
-        params = {hackerman: true}
-        expect {
-          post :create, params: params
-        }.to raise_error(ActionController::ParameterMissing)
+        expect(response).to redirect_to("/students/#{assigns(:student).id}")
       end
     end
   end
