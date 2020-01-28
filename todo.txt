@@ -1,0 +1,3 @@
+To Do
+Dont allow student to get grades for assignments for classes that they are not members of.
+Correctly does not allow deletion of courses with students, show a graceful error stating that instead of foreign key exception

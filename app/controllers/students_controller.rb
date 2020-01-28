@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
    # binding.irb
     # @student = Student.new(student_params)
      @student = Student.new(name: student_params[:name], course: Course.find_by(name: student_params[:course]))
-
+     #binding.irb
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
